@@ -1,0 +1,114 @@
+/*
+ * CASEFILE design tokens.
+ * Layout concept: a fixed top-down desk; the case sheet is the centre of gravity,
+ * with folders, clock and accessories placed around it like real objects.
+ * The game commits to one look (night desk under a lamp), so there is no light/dark switch.
+ */
+:root {
+  /* Palette from the brief */
+  --navy: #111820;
+  --slate: #202d38;
+  --slate-hi: #2e3e4c;
+  --wood: #35271f;
+  --wood-dark: #241a14;
+  --wood-light: #47352a;
+  --paper: #f1e8d4;
+  --paper-shade: #e2d6bb;
+  --paper-edge: #c9b996;
+  --ink: #2a241f;
+  --ink-soft: #5b5047;
+  --red: #a74440;
+  --red-dark: #7a2f2c;
+  --gold: #d3a35b;
+  --gold-dark: #9c7638;
+  --grey: #a4b1b7;
+  --grey-dark: #6e7b82;
+  --manila: #cfae74;
+  --manila-dark: #a8874f;
+  --highlight: rgba(211, 163, 91, 0.55);
+
+  /* Type */
+  --font-pixel: 'Press Start 2P', 'Courier New', monospace;
+  --font-doc: 'Courier Prime', 'Courier New', Courier, monospace;
+
+  /* Pixel unit: borders and offsets snap to this */
+  --px: 3px;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; min-height: 100%; }
+
+body {
+  background: var(--wood-dark);
+  color: var(--paper);
+  font-family: var(--font-doc);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root { min-height: 100vh; min-height: 100dvh; }
+
+button { font: inherit; color: inherit; }
+
+svg[shape-rendering='crispEdges'] { image-rendering: pixelated; display: block; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+:focus-visible {
+  outline: var(--px) solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Chunky pixel button ---------- */
+.px-btn {
+  --btn-bg: var(--paper);
+  --btn-fg: var(--navy);
+  --btn-edge: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px 7px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: var(--px) solid var(--btn-edge);
+  border-radius: 0;
+  box-shadow: 0 var(--px) 0 0 var(--btn-edge), inset 0 calc(-1 * var(--px)) 0 0 rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  transition: transform 60ms steps(2), box-shadow 60ms steps(2);
+  user-select: none;
+}
+.px-btn:hover:not(:disabled) { filter: brightness(1.06); }
+.px-btn:active:not(:disabled) {
+  transform: translateY(var(--px));
+  box-shadow: 0 0 0 0 var(--btn-edge), inset 0 calc(-1 * var(--px)) 0 0 rgba(0, 0, 0, 0.14);
+}
+.px-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.px-btn--red { --btn-bg: var(--red); --btn-fg: var(--paper); --btn-edge: var(--navy); }
+.px-btn--gold { --btn-bg: var(--gold); --btn-fg: var(--navy); }
+.px-btn--icon { min-height: 36px; min-width: 36px; padding: 6px; }
+.px-btn--small { min-height: 34px; padding: 6px 10px 5px; font-size: 8px; }
+.px-btn--big { min-height: 52px; padding: 12px 20px 11px; font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
